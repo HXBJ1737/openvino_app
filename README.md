@@ -2,7 +2,7 @@
   --- 
 1. 下载项目代码
 
-        git clone https://github.com/ultralytics/ultralytics.git
+        git clone https://github.com/HXBJ1737/openvino_app.git
 2. 下载模型 
     
         链接：https://pan.baidu.com/s/1V7_67vP6-tAIRjenoh52qw?pwd=hxbj 
