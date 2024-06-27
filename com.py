@@ -555,11 +555,11 @@ class Com(QtWidgets.QMainWindow):
         emo_rate = []
         for emo_i, count_i in zip(emo, count):
             if count_i < 5:
-                it = emo_i/(count_i+0.001)+random.random()*0.2 if emo_i / \
-                    (count_i+0.001)+random.random()*0.2 < 1 else emo_i/(count_i+0.001)
+                it = emo_i/(count_i+0.001)+random.random()*0.1 if emo_i / \
+                    (count_i+0.001)+random.random()*0.1 < 1 else emo_i/(count_i+0.001)
                 emo_rate.append(it)
             else:
-                it = emo_i/5+random.random()*0.2 if emo_i/5+random.random()*0.2 < 1 else emo_i/5
+                it = emo_i/5+random.random()*0.1 if emo_i/5+random.random()*0.1 < 1 else emo_i/5
                 emo_rate.append(it)
         # emo_rate = [emo_i/(count_i+0.001)+random.random()*0.2
         #             for emo_i, count_i in zip(emo, count)]
@@ -592,6 +592,7 @@ class Com(QtWidgets.QMainWindow):
 
     def tohtml(self):
         from pyecharts.charts import Line
+        from pyecharts.charts import Page
         data = pd.read_csv(self.save_file_path+'/data.csv')
         x = data[['time', 'count', 'down', 'emotion']]
         count = list(x['count'])
@@ -604,24 +605,56 @@ class Com(QtWidgets.QMainWindow):
         emo_rate = []
         for emo_i, count_i in zip(emo, count):
             if count_i < 5:
-                emo_rate.append(emo_i/(count_i+0.001)+random.random()*0.2)
+                emo_rate.append(emo_i/(count_i+0.001)+random.random()*0.1)
             else:
-                emo_rate.append(emo_i/5+random.random()*0.2)
+                emo_rate.append(emo_i/5+random.random()*0.1)
 
-        line = (Line()
-                .add_xaxis(t)
-                .add_yaxis('DOWN_RATE', down_rate,
-                           markline_opts=opts.MarkLineOpts(
-                               data=[opts.MarkLineItem(type_="average")]),
-                           label_opts=opts.LabelOpts(is_show=False))
-                .add_yaxis('EMO_RATE', emo_rate,
-                           is_smooth=True,
-                           label_opts=opts.LabelOpts(is_show=False),
-                           markpoint_opts=opts.MarkPointOpts(data=[opts.MarkPointItem(name="自定义标记点",coord=[t[2], t[2]], value=t[2])]))
-                .set_global_opts(title_opts=opts.TitleOpts(title="", subtitle=""))
-                )
+        charts = [
+            Line()
+            .add_xaxis(t)
+            .add_yaxis('COUNT', count,
+                       markline_opts=opts.MarkLineOpts(
+                           data=[opts.MarkLineItem(type_="average")]),
+                       label_opts=opts.LabelOpts(is_show=False))
+            .add_yaxis('DOWN_RATE', down_rate,
+                       markline_opts=opts.MarkLineOpts(
+                           data=[opts.MarkLineItem(type_="average")]),
+                       label_opts=opts.LabelOpts(is_show=False))
+            .add_yaxis('EMO_RATE', emo_rate,
+                       is_smooth=True,
+                       label_opts=opts.LabelOpts(is_show=False),
+                       markline_opts=opts.MarkLineOpts(
+                           data=[opts.MarkLineItem(type_="average")]))
+            .set_global_opts(title_opts=opts.TitleOpts(title="", subtitle=""), yaxis_opts=opts.AxisOpts(min_=0, max_=max(count)*1.2)),
+            Line()
+            .add_xaxis(t)
+            .add_yaxis('COUNT', count,
+                       is_smooth=True,
+                       label_opts=opts.LabelOpts(is_show=False))
+            .set_global_opts(yaxis_opts=opts.AxisOpts(min_=0, max_=max(count)*1.2)),
 
-        line.render(path=self.save_file_path+'/render.html')
+            Line()
+            .add_xaxis(t)
+            .add_yaxis('DOWN_RATE', down_rate,
+                       is_smooth=True,
+                       label_opts=opts.LabelOpts(is_show=False))
+            # 修改在这里
+            .set_global_opts(yaxis_opts=opts.AxisOpts(min_=0, max_=1.2)),
+
+            Line()
+            .add_xaxis(t)
+            .add_yaxis('EMO_RATE', emo_rate,
+                       is_smooth=True,
+                       label_opts=opts.LabelOpts(is_show=False))
+            # 修改在这里
+            .set_global_opts(yaxis_opts=opts.AxisOpts(min_=0, max_=1.2)),
+        ]
+        page = Page()
+        for chart in charts:
+            page.add(chart)
+
+        # 渲染到HTML文件
+        page.render(path=self.save_file_path+'/render.html')
 
 
 if __name__ == '__main__':
