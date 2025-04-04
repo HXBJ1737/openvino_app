@@ -19,5 +19,4 @@ qss_label_0 = 'border:1px solid #D7E2F9;color:rgb(0,255,100);font-size:15px;'
 
 qss_label_1 = 'border:1px solid #D7E2F9;color:rgb(0,255,100);font-size:20px;'
 
-
 qss_label_min = 'color:white;'

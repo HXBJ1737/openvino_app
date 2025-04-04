@@ -16,6 +16,7 @@ from load import load_model4, load_model1
 os.environ['YOLO_VERBOSE'] = 'False'
 
 
+
 class Expression_detect(QtWidgets.QMainWindow):
 
     def __init__(self):

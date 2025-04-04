@@ -16,6 +16,7 @@ from load import load_model2 as load_model
 os.environ['YOLO_VERBOSE'] = 'False'
 
 
+
 class Person_detect(QtWidgets.QMainWindow):
 
     def __init__(self):

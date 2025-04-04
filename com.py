@@ -21,6 +21,7 @@ import matplotlib
 matplotlib.use('TkAgg')  # 后端渲染或者用'svg'
 
 
+
 class Com(QtWidgets.QMainWindow):
 
     def __init__(self):

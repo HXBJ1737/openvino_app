@@ -41,7 +41,7 @@ class App(QTabWidget):
         # 获取新的窗口大小
         new_size = event.size()
         # 更新标签的文本内容
-        print(f"Window size: {new_size.width()} x {new_size.height()}")
+        print(f"Window Size: {new_size.width()} x {new_size.height()}")
         qss_tab_width = qss.qss_tab_width.replace(
             '100px', f"{new_size.width()/5.45}px")
         self.setStyleSheet(qss_tab_width+qss.qss_tab+qss.qss_tab_selected +

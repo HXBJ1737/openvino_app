@@ -16,6 +16,7 @@ from load import load_model1 as load_model
 os.environ['YOLO_VERBOSE'] = 'False'
 
 
+
 class Face_detect(QtWidgets.QMainWindow):
 
     def __init__(self):

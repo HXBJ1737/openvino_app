@@ -17,6 +17,7 @@ class model1:
         self.label_map = ['face']
 
 
+
 class model2:
     def __init__(self):
         self.model = 'xml_models/yolov8s_nncf_int8.xml'
