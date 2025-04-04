@@ -7,7 +7,7 @@
     
         链接：https://pan.baidu.com/s/1V7_67vP6-tAIRjenoh52qw?pwd=hxbj 
         提取码：hxbj
-    下载后将models、video、xml_models、img这四个文件夹放在主目录下
+    下载后将 models、video、xml_models、img 这四个文件夹放在主目录下
 
 3. 环境配置  
 
